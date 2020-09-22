@@ -1,4 +1,6 @@
-﻿using CSClassLibForJavaOData;
+﻿using Ac4yClassModule.Class;
+using Ac4yClassModule.Service;
+using CSClassLibForJavaOData;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +25,7 @@ namespace CSJavaODataServiceGenerator
         private const string APPSETTINGS_JAVAODATASERVICESUBPATH = "JAVAODATASERVICESUBPATH";
         private const string APPSETTINGS_CLASSNAME = "CLASSNAME";
         private const string APPSETTINGS_PACKAGENAME = "PACKAGENAME";
+        private const string APPSETTINGS_JPAPACKAGENAME = "JPAPACKAGENAME";
         private const string APPSETTINGS_PERSISTENCENAME = "PERSISTENCENAME";
         private const string APPSETTINGS_JAVAODATASERVICEOUTPUTPATH = "JAVAODATASERVICEOUTPUTPATH";
 
@@ -33,6 +36,9 @@ namespace CSJavaODataServiceGenerator
         private const string APPSETTINGS_DATABASENAME = "DATABASENAME";
         private const string APPSETTINGS_JAVAPERSISTENCESUBPATH = "JAVAPERSISTENCESUBPATH";
         private const string APPSETTINGS_JAVAPERSISTENCEOUTPUTPATH = "JAVAPERSISTENCEOUTPUTPATH";
+
+        private const string APPSETTINGS_JAVAJPASUBPATH = "JAVAJPASUBPATH";
+        private const string APPSETTINGS_JAVAJPAOUTPUTPATH = "JAVAJPAOUTPUTPATH";
 
 
         public IConfiguration Config { get; set; }
@@ -52,27 +58,17 @@ namespace CSJavaODataServiceGenerator
             persistenceLista.Add(typeof(Cars));
             persistenceLista.Add(typeof(Colors));
 
-            new JavaPersistenceXMLGenerator()
+            new JavaJPAGenerator()
             {
                 TemplatePath = Config[APPSETTINGS_TEMPLATEPATH]
                 ,
-                TemplateSubPath = Config[APPSETTINGS_JAVAPERSISTENCESUBPATH]
+                TemplateSubPath = Config[APPSETTINGS_JAVAJPASUBPATH]
                 ,
-                OutputPath = Config[APPSETTINGS_JAVAPERSISTENCEOUTPUTPATH]
+                OutputPath = Config[APPSETTINGS_JAVAJPAOUTPUTPATH]
                 ,
-                IP = Config[APPSETTINGS_IP]
-                ,
-                Port = Config[APPSETTINGS_PORT]
-                ,
-                PersistenceName = Config[APPSETTINGS_PERSISTENCENAME]
-                ,
-                Password = Config[APPSETTINGS_PASSWORD]
-                ,
-                UserName = Config[APPSETTINGS_USERNAME]
-                ,
-                DatabaseName = Config[APPSETTINGS_DATABASENAME]
+                PackageName = Config[APPSETTINGS_JPAPACKAGENAME]
             }
-                .Generate(persistenceLista);
+                .Generate(new Ac4yClassHandler().GetAc4yClassFromType(typeof(Cars)));
 
 
         } // run

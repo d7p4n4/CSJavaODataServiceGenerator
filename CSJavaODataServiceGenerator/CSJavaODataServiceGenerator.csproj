@@ -12,6 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="CSAc4yClassFW">
+      <HintPath>C:\library\LPCsharp\CSAc4yClassFW.dll</HintPath>
+    </Reference>
+    <Reference Include="CSAc4yFW">
+      <HintPath>C:\library\LPCsharp\CSAc4yFW.dll</HintPath>
+    </Reference>
+    <Reference Include="CSAc4yUtilityFW">
+      <HintPath>C:\library\LPCsharp\CSAc4yUtilityFW.dll</HintPath>
+    </Reference>
     <Reference Include="CSClassLibForJavaOData">
       <HintPath>..\..\CSClassLibForJavaOData\CSClassLibForJavaOData\bin\Debug\netcoreapp3.1\CSClassLibForJavaOData.dll</HintPath>
     </Reference>
