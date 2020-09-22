@@ -40,6 +40,9 @@ namespace CSJavaODataServiceGenerator
         private const string APPSETTINGS_JAVAJPASUBPATH = "JAVAJPASUBPATH";
         private const string APPSETTINGS_JAVAJPAOUTPUTPATH = "JAVAJPAOUTPUTPATH";
 
+        private const string APPSETTINGS_JAVAWEBXMLSUBPATH = "JAVAWEBXMLSUBPATH";
+        private const string APPSETTINGS_JAVAWEBXMLOUTPUTPATH = "JAVAWEBXMLOUTPUTPATH";
+
 
         public IConfiguration Config { get; set; }
 
@@ -58,17 +61,23 @@ namespace CSJavaODataServiceGenerator
             persistenceLista.Add(typeof(Cars));
             persistenceLista.Add(typeof(Colors));
 
-            new JavaJPAGenerator()
+            new JavaWebXMLGenerator()
             {
                 TemplatePath = Config[APPSETTINGS_TEMPLATEPATH]
                 ,
-                TemplateSubPath = Config[APPSETTINGS_JAVAJPASUBPATH]
+                TemplateSubPath = Config[APPSETTINGS_JAVAWEBXMLSUBPATH]
                 ,
-                OutputPath = Config[APPSETTINGS_JAVAJPAOUTPUTPATH]
+                OutputPath = Config[APPSETTINGS_JAVAWEBXMLOUTPUTPATH]
                 ,
-                PackageName = Config[APPSETTINGS_JPAPACKAGENAME]
+                DisplayName = Config[APPSETTINGS_PERSISTENCENAME]
+                ,
+                ClassName = Config[APPSETTINGS_CLASSNAME]
+                ,
+                PackageName = Config[APPSETTINGS_PACKAGENAME]
+                ,
+                UrlPattern = Config[APPSETTINGS_PERSISTENCENAME]
             }
-                .Generate(new Ac4yClassHandler().GetAc4yClassFromType(typeof(Cars)));
+                .Generate();
 
 
         } // run

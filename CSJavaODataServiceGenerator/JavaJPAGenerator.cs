@@ -90,7 +90,7 @@ namespace CSJavaODataServiceGenerator
             string text = ReadIntoString("getSet");
             string returnText = "";
 
-            for (int i = 0; i <= Type.PropertyList.Count - 11; i++)
+            for (int i = 0; i <= Type.PropertyList.Count - 12; i++)
             {
                 returnText += text.Replace(TypeMask, Type.PropertyList[i].TypeName)
                                   .Replace(PropertyNameMask, Type.PropertyList[i].Name);
@@ -104,7 +104,7 @@ namespace CSJavaODataServiceGenerator
             string text = ReadIntoString("property");
             string returnText = "";
 
-            for (int i = 0; i <= Type.PropertyList.Count - 11; i++)
+            for (int i = 0; i <= Type.PropertyList.Count - 12; i++)
             {
                 returnText += text.Replace(TypeMask, Type.PropertyList[i].TypeName)
                                   .Replace(PropertyNameMask, Type.PropertyList[i].Name);
