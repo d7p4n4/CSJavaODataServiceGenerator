@@ -20,6 +20,7 @@ namespace CSJavaODataServiceGenerator
         public string DatabaseName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string PackageName { get; set; }
 
         public List<Type> Types { get; set; }
 
@@ -35,7 +36,7 @@ namespace CSJavaODataServiceGenerator
         private const string UserNameMask = "#userName#";
         private const string PasswordMask = "#password#";
 
-        private const string ClassCodeAsVariableMask = "#classCodeAsVariable#";
+        private const string PackageNameMask = "#packageName#";
 
         #endregion members
 
@@ -99,7 +100,8 @@ namespace CSJavaODataServiceGenerator
 
             foreach (Type type in Types)
             {
-                returnText += text.Replace(ClassNameMask, type.Name);
+                returnText += text.Replace(ClassNameMask, type.Name)
+                                  .Replace(PackageNameMask, PackageName);
             }
 
             return returnText;
