@@ -26,7 +26,40 @@ namespace CSJavaODataServiceGenerator
         private const string TypeMask = "#type#";
         private const string PropertyNameMask = "#propertyName#";
 
+        public Dictionary<string, string> TipusKonverziok = new Dictionary<string, string>()
+        {
+            { "Int32", "int" },
+            { "Decimal", "Decimal?" },
+            { "Money", "Decimal?" },
+            { "Float", "float?" },
+            { "Int64", "Long" },
+            { "VarChar", "string" },
+            { "Char", "string" },
+            { "VarBinary", "byte[]" },
+            { "DateTime", "Calendar" },
+            { "Date", "DateTime?" },
+            { "TinyInt", "Byte?" },
+            { "Bit", "bool" },
+            { "String", "String" },
+            { "Double", "Double" },
+            { "Boolean", "Boolean" }
+        };
+
         #endregion members
+
+        public string GetConvertedType(string type)
+        {
+            string result = null;
+            try
+            {
+                result = TipusKonverziok[type];
+            }
+            catch (Exception exception)
+            {
+                result = "nodeftype (" + type + ")";
+            }
+            return result;
+        } // GetConvertedType
 
         public string ReadIntoString(string fileName)
         {
@@ -39,6 +72,7 @@ namespace CSJavaODataServiceGenerator
 
         public void WriteOut(string text, string fileName, string outputPath)
         {
+            System.IO.Directory.CreateDirectory(outputPath + "model");
             File.WriteAllText(outputPath + fileName + ".java", text);
 
         }
@@ -90,10 +124,11 @@ namespace CSJavaODataServiceGenerator
             string text = ReadIntoString("getSet");
             string returnText = "";
 
-            for (int i = 0; i <= Type.PropertyList.Count - 12; i++)
+            for (int i = 0; i < Type.PropertyList.Count; i++)
             {
-                returnText += text.Replace(TypeMask, Type.PropertyList[i].TypeName)
-                                  .Replace(PropertyNameMask, Type.PropertyList[i].Name);
+                    returnText += text.Replace(TypeMask, GetConvertedType(Type.PropertyList[i].TypeName))
+                                      .Replace(PropertyNameMask, Type.PropertyList[i].Name);
+                
             }
 
             return returnText;
@@ -104,10 +139,19 @@ namespace CSJavaODataServiceGenerator
             string text = ReadIntoString("property");
             string returnText = "";
 
-            for (int i = 0; i <= Type.PropertyList.Count - 12; i++)
+            for (int i = 0; i < Type.PropertyList.Count; i++)
             {
-                returnText += text.Replace(TypeMask, Type.PropertyList[i].TypeName)
-                                  .Replace(PropertyNameMask, Type.PropertyList[i].Name);
+                if (Type.PropertyList[i].TypeName.Equals("DateTime"))
+                {
+                    returnText += "\n @Temporal(TemporalType.DATE)" + text.Replace(TypeMask, GetConvertedType(Type.PropertyList[i].TypeName))
+                                      .Replace(PropertyNameMask, Type.PropertyList[i].Name);
+
+                }
+                else
+                {
+                    returnText += text.Replace(TypeMask, GetConvertedType(Type.PropertyList[i].TypeName))
+                                      .Replace(PropertyNameMask, Type.PropertyList[i].Name);
+                }
             }
 
             return returnText;

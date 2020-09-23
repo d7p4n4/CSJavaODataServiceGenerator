@@ -40,6 +40,7 @@ namespace CSJavaODataServiceGenerator
 
         public void WriteOut(string text, string fileName, string outputPath)
         {
+            System.IO.Directory.CreateDirectory(outputPath + "main");
             File.WriteAllText(outputPath + fileName + ".java", text);
 
         }

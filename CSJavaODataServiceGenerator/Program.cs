@@ -61,23 +61,17 @@ namespace CSJavaODataServiceGenerator
             persistenceLista.Add(typeof(Cars));
             persistenceLista.Add(typeof(Colors));
 
-            new JavaWebXMLGenerator()
+            new JavaJPAGenerator()
             {
                 TemplatePath = Config[APPSETTINGS_TEMPLATEPATH]
                 ,
-                TemplateSubPath = Config[APPSETTINGS_JAVAWEBXMLSUBPATH]
+                TemplateSubPath = Config[APPSETTINGS_JAVAJPASUBPATH]
                 ,
-                OutputPath = Config[APPSETTINGS_JAVAWEBXMLOUTPUTPATH]
+                OutputPath = Config[APPSETTINGS_JAVAJPAOUTPUTPATH]
                 ,
-                DisplayName = Config[APPSETTINGS_PERSISTENCENAME]
-                ,
-                ClassName = Config[APPSETTINGS_CLASSNAME]
-                ,
-                PackageName = Config[APPSETTINGS_PACKAGENAME]
-                ,
-                UrlPattern = Config[APPSETTINGS_PERSISTENCENAME]
+                PackageName = Config[APPSETTINGS_JPAPACKAGENAME]
             }
-                .Generate();
+                .Generate(new Ac4yClassHandler().GetAc4yClassFromType(typeof(Vendor)));
 
 
         } // run
