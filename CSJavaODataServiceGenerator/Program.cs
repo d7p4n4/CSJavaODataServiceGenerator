@@ -59,7 +59,7 @@ namespace CSJavaODataServiceGenerator
         {
             List<Type> persistenceLista = new List<Type>();
             persistenceLista.Add(typeof(Cars));
-            persistenceLista.Add(typeof(Colors));
+            persistenceLista.Add(typeof(Color));
 
             new JavaJPAGenerator()
             {
@@ -71,7 +71,7 @@ namespace CSJavaODataServiceGenerator
                 ,
                 PackageName = Config[APPSETTINGS_JPAPACKAGENAME]
             }
-                .Generate(new Ac4yClassHandler().GetAc4yClassFromType(typeof(Vendor)));
+                .Generate(new Ac4yClassHandler().GetAc4yClassFromType(typeof(Varos)));
 
 
         } // run
